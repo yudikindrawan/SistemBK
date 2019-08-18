@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\User;
 use App\roles;
 use Auth;
+use DB;
 
-class dashboardController extends Controller
+class usercontroller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,12 +17,15 @@ class dashboardController extends Controller
      */
     public function __construct(){
         $this->middleware('auth');
+        $this->middleware('roles:Admin');
     }
 
     public function index()
     {
         //
-        return view ('backend/dashboard');
+        $users = user::all();
+        $roles = roles::all();
+        return view('backend/datauser/index', compact('users','roles'));
     }
 
     /**

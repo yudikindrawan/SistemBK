@@ -1,5 +1,5 @@
 @extends('layouts.master')
-
+@section ('title', 'Dashboard - Sistem Informasi Bimbingan Konseling')
 @section('content')
 <div class="page-wrapper">
     <div class="page-breadcrumb">

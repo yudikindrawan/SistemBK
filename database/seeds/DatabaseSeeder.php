@@ -12,5 +12,38 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
+
+        App\roles::create([
+            'nama_role' => 'Admin'
+        ]);
+        App\roles::create([
+            'nama_role' => 'BK'
+        ]);
+        App\roles::create([
+            'nama_role' => 'Kepsek'
+        ]);
+        App\roles::create([
+            'nama_role' => 'OrangTua'
+        ]);
+        App\User::create([
+            'roles_id' => 1,
+            'username' => 'admin',
+            'password' => bcrypt('admin'),
+        ]);
+        App\User::create([
+            'roles_id' => 2,
+            'username' => 'konseling',
+            'password' => bcrypt('konseling'),
+        ]);
+        App\User::create([
+            'roles_id' => 3,
+            'username' => 'kepsek',
+            'password' => bcrypt('kepsek'),
+        ]);
+        App\User::create([
+            'roles_id' => 4,
+            'username' => 'OrangTua',
+            'password' => bcrypt('OrangTua'),
+        ]);
     }
 }
