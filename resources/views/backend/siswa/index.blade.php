@@ -42,16 +42,16 @@
                                         </thead>
                                         <tbody>
                                             <?php $no = 0 ;?>
-                                            @foreach($users as $user)
+                                            @foreach($siswas as $siswa)
                                             <?php $no++ ;?>
                                             <tr>
                                                 <td>{{ $no }}</td>
-                                                <td>{{ $user->username }}</td>
-                                                <td>{{ $user->password }}</td>
-                                                <td>{{ $user->roles->nama_role}}</td>
+                                                <td>{{ $siswa->siswaname }}</td>
+                                                <td>{{ $siswa->password }}</td>
+                                                <td>{{ $siswa->roles->nama_role}}</td>
                                                 <td style="white-space: nowrap; ">
-                                                    <a onClick="modalEditTriger( {{$user->id}} )" data-toggle="modal" class="btn btn-warning btn-sm">Reset</a>
-                                                    <button class="btn btn-danger btn-sm" data-id={{ $user->id }} data-toggle="modal" data-target="#exampleModal">Hapus</button>
+                                                    <a onClick="modalEditTriger( {{$siswa->id}} )" class="btn btn-warning btn-sm">Reset</a>
+                                                    <button class="btn btn-danger btn-sm" data-id={{ $siswa->id }} data-toggle="modal" data-target="#exampleModal">Hapus</button>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -74,6 +74,7 @@
             </div>
         </div>
     </div>
+    <div class="modalKu"></div>
 <!-- modal create -->
 <div class="modal fade" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -88,11 +89,11 @@
                     <input type="hidden" name="id" class="form-control"/>
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" name="username" id="username" class="form-control " placeholder="Masukan Username" required/>
+                        <input type="text" name="username" id="username" class="form-control required" placeholder="Masukan Username" required/>
                     </div>
                     <div class="form-group">
                         <label for="roles_id">Jabatan</label>
-                        <select name="roles_id" id="roles_id" class="form-control select2 " style="width: 100%;" required>
+                        <select name="roles_id" id="roles_id" class="form-control select2 required" style="width: 100%;" required>
                             <option selected="selected" value="">Pilih Jabatan</option>
                             @foreach($roles as $role)
                                 <option value="{{$role->id}}">{{$role->nama_role}}</option>
@@ -101,7 +102,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Batal</button>
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="submit" class="btn btn-success btn-sm" value="Simpan">
                 </div>
@@ -109,66 +110,4 @@
         </form> 
     </div>
 </div>
-<!-- end modal create-->
-<!-- modal delete -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <form action="{{ route('user.hapus')}}" method="post">
-        {{ csrf_field() }}
-        {{ method_field('delete') }}
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Peringatan Hapus</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="id" id="id"/> 
-                    Apa anda yakin ingin menghapus data ini?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- end modal delete -->
-<div class="modalKu"></div>
 @endsection
-@push('scripts')
-<script>
-    // MODAL EDIT
-    
-    function modalEditTriger(id){
-        jQuery.noConflict();
-        $.ajax({
-            url     : "{{ route('edituser') }}",
-            method  : 'get',
-            data    : {
-            'id' : id
-            },
-            success : function(response){
-            // console.log(response);
-                $('.modalKu').html(response);
-                $('#editModal').modal({ backdrop: 'static', keyboard: false });
-            }
-        });
-    }
-
-    $('#exampleModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) 
-        var recipient = button.data('id')
-        var modal = $(this)
-            modal.find('#id').val(recipient)
-    })
-</script>
-<script>
-    /****************************************
-    *       Basic Table                   *
-    ****************************************/
-    $('#zero_config').DataTable();
-</script>
-@endpush

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section ('title', 'Data User - Sistem Informasi Bimbingan Konseling')
+@section ('title', 'Data Periode- Sistem Informasi Bimbingan Konseling')
 
 @section('content')
 <div class="page-wrapper">
@@ -11,7 +11,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Data User</li>
+                            <li class="breadcrumb-item active" aria-current="page">Periode</li>
                         </ol>
                     </nav>
                 </div>
@@ -23,7 +23,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Data User</h5>
+                        <h5 class="card-title">Data Periode</h5>
                         <div class="card">
                         <div class="col-xs-7">
                             <a href="javascript:void(0)"><button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#myModal">Tambah</button></a>
@@ -34,24 +34,21 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Username</th>
-                                                <th>Password</th>
-                                                <th>Roles</th>
+                                                <th>Semester</th>
+                                                <th>Tahun AKademik</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php $no = 0 ;?>
-                                            @foreach($users as $user)
+                                            @foreach($periodes as $periode)
                                             <?php $no++ ;?>
                                             <tr>
                                                 <td>{{ $no }}</td>
-                                                <td>{{ $user->username }}</td>
-                                                <td>{{ $user->password }}</td>
-                                                <td>{{ $user->roles->nama_role}}</td>
+                                                <td>{{ $periode->semester }}</td>
+                                                <td>{{ $periode->tahun_akademik }}</td>
                                                 <td style="white-space: nowrap; ">
-                                                    <a onClick="modalEditTriger( {{$user->id}} )" data-toggle="modal" class="btn btn-warning btn-sm">Reset</a>
-                                                    <button class="btn btn-danger btn-sm" data-id={{ $user->id }} data-toggle="modal" data-target="#exampleModal">Hapus</button>
+                                                    <a onClick="modalEditTriger( {{$periode->id}} )" data-toggle="modal" class="btn btn-info btn-sm" style="color:white;">Ubah</a>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -59,9 +56,8 @@
                                         <tfoot>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Username</th>
-                                                <th>Password</th>
-                                                <th>Roles</th>
+                                                <th>Semester</th>
+                                                <th>Tahun AKademik</th>
                                                 <th>Action</th>
                                             </tr>
                                         </tfoot>
@@ -74,30 +70,35 @@
             </div>
         </div>
     </div>
+<div class="modalKu"></div>
 <!-- modal create -->
 <div class="modal fade" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
-        <form class="formuser" id="formuser" action="{{route('user.store')}}" method="POST">
-        {{csrf_field() }}
+        <form class="formuser" id="formuser" action="{{ route('periode.store') }}" method="POST">
+        {{ csrf_field() }}
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Tambah Data User</h4>
+                    <h4 class="modal-title">Tambah Data Periode</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="id" class="form-control"/>
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" name="username" id="username" class="form-control " placeholder="Masukan Username" required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="roles_id">Jabatan</label>
-                        <select name="roles_id" id="roles_id" class="form-control select2 " style="width: 100%;" required>
-                            <option selected="selected" value="">Pilih Jabatan</option>
-                            @foreach($roles as $role)
-                                <option value="{{$role->id}}">{{$role->nama_role}}</option>
+                        <label>Semester</label>
+                        <select required class="select2 form-control custom-select" style="width: 100%; height:36px;" name="semester">
+                            <option selected="selected">Pilh Semester</option>
+                            @foreach($semesters as $semester)
+                            <option value="{{$semester}}" >{{$semester}}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="m-t-15">Tahun Akademik</label>
+                        <div class="input-group">
+                            <input type="text" name="tahun_akademik" class="form-control datepicker-autoclose" id="datepicker-autoclose" placeholder="yyyy" required> 
+                            <div class="input-group-append">
+                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -105,47 +106,20 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="submit" class="btn btn-success btn-sm" value="Simpan">
                 </div>
-            </div>    
+            </div>
         </form> 
     </div>
 </div>
 <!-- end modal create-->
-<!-- modal delete -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <form action="{{ route('user.hapus')}}" method="post">
-        {{ csrf_field() }}
-        {{ method_field('delete') }}
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Peringatan Hapus</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="id" id="id"/> 
-                    Apa anda yakin ingin menghapus data ini?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- end modal delete -->
-<div class="modalKu"></div>
 @endsection
 @push('scripts')
 <script>
-    // MODAL EDIT
+     // MODAL EDIT
     
     function modalEditTriger(id){
         jQuery.noConflict();
         $.ajax({
-            url     : "{{ route('edituser') }}",
+            url     : "{{ route('editperiode') }}",
             method  : 'get',
             data    : {
             'id' : id
@@ -170,5 +144,15 @@
     *       Basic Table                   *
     ****************************************/
     $('#zero_config').DataTable();
+
+</script>
+<script>
+    /*datwpicker*/
+        jQuery('.datepicker-autoclose').datepicker({
+            format: " yyyy",
+            viewMode: "years", 
+            minViewMode: "years",
+            autoclose: true,
+        });
 </script>
 @endpush

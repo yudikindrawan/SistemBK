@@ -45,5 +45,19 @@ class DatabaseSeeder extends Seeder
             'username' => 'OrangTua',
             'password' => bcrypt('OrangTua'),
         ]);
+        App\periode::create([
+            'semester' => 'Ganjil',
+            'tahun_akademik' => 2019,
+        ]);
+        App\periode::create([
+            'semester' => 'Genap',
+            'tahun_akademik' => 2019,
+        ]);
+        App\kelas::create([
+            'nama_kelas' => 'AP1',
+        ]);
+        App\kelas::create([
+            'nama_kelas' => 'AP2',
+        ]);
     }
 }

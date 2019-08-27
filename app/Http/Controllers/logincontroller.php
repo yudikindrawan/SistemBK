@@ -24,16 +24,15 @@ class logincontroller extends Controller
             
             {
                 if(Auth::user()->roles->nama_role === 'Admin'){
-                    toastr()->success('Log in Berhasil!', 'Selamat yaa!');
+                    toastr()->success('Hoorayy anda Berhasil log in!', 'Selamat yaa!');
                     return redirect(route('dashboard'));
-                
                 }
                 elseif(Auth::user()->roles->nama_role === 'BK'){
-                    toastr()->success('Log in Berhasil!', 'Selamat yaa!');
+                    toastr()->success('Hoorayy anda Berhasil log in!', 'Selamat yaa!');
                     return redirect(route('dashboard'));
                 }
                 elseif(Auth::user()->roles->nama_role === 'Kepsek'){
-                    toastr()->success('Log in Berhasil!', 'Selamat yaa!');
+                    toastr()->success('Hoorayy anda Berhasil log in!', 'Selamat yaa!');
                     return redirect(route('dashboard'));
                 }
                 elseif(Auth::user()->roles->nama_role === 'OrangTua'){
@@ -45,7 +44,7 @@ class logincontroller extends Controller
                 }
 
             }else{
-                toastr()->error('Hhmm maaf ya anda kurang beruntung!', 'Tak terbayangkan ini harus terjadi');
+                toastr()->error('Hhmm maaf ya anda kurang beruntung!', 'Tak ku sangka ini harus terjadi');
                 return redirect(route('login'));
             }
         }

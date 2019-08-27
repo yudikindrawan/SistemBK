@@ -24,17 +24,9 @@
     <script src="{{ asset('assets/extra-libs/multicheck/datatable-checkbox-init.js')}}"></script>
     <script src="{{ asset('assets/extra-libs/multicheck/jquery.multicheck.js') }}"></script>
     <script src="{{ asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
-    @stack('scripts')
-    <script>
-    $('.modalLogoutTrigger').click(function(event){
-        event.preventDefault();
-            $.ajax({
-                url     : "{{route('modal_logout')}}",
-                method  : 'get',
-                success : function(response){
-                    $('.modalKu').html(response);
-                    $('#myModal').modal({ backdrop: 'static', keyboard: false });
-                }
-            });
-    });
-    </script>
+    <!-- Datepicker-->
+    <script src="{{ asset ('assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+    <!-- Select2-->
+    <script src="{{ asset ('assets/libs/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset ('assets/libs/select2/dist/js/select2.min.js') }}"></script>
+        @stack('scripts')
