@@ -1,5 +1,6 @@
 <?php
 
+use App\konseling;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +18,7 @@
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'dashboardController@index')->name('dashboard');
+Route::get('profile', 'dashboardController@profil')->name('profile');
 Auth::routes();
 // Login Route
 Route::get('login', 'logincontroller@getlogin')->name('login');
@@ -28,13 +30,24 @@ Route::get('/logout', 'logoutcontroller@logout')->name('logout');
 Route::resource('user', 'usercontroller');
 Route::delete('user-delete', 'usercontroller@hapus')->name('user.hapus');
 Route::get('user-ubah', 'usercontroller@ubah')->name('edituser');
+Route::get('ubah', 'ubahpasswordcontroller@change')->name('changepass');
+Route::post('passwordUbah', 'ubahpasswordcontroller@changePass')->name('changePassword');
 // siswa route
 Route::resource('siswa', 'siswacontroller');
-
+Route::post('siswa/import_excel', 'siswacontroller@import_excel');
+Route::get('siswa-ubah/', 'siswacontroller@ubah')->name('editsiswa');
 // periode route
 Route::resource('periode', 'periodecontroller');
 Route::get('periode-ubah', 'periodecontroller@ubah')->name('editperiode');
-
 // kelas route
 Route::resource('kelas', 'kelascontroller');
 Route::get('kelas-ubah', 'kelascontroller@ubah')->name('editkelas');
+// pelanggaran routes
+Route::resource('pelanggaran', 'pelanggarancontroller');
+Route::get('pelanggaran-ubah', 'pelanggarancontroller@ubah')->name('editpelanggaran');
+//konseling routes
+Route::resource('konseling', 'konselingcontroller');
+Route::get('konseling-cari', 'konselingcontroller@cari')->name('cari');
+Route::get('pelanggaran-cari', 'konselingcontroller@cariPel')->name('cariPel');
+Route::get('konseling-detail', 'konselingcontroller@show')->name('detailkonseling');
+Route::put('konseling-valid/', 'konselingcontroller@valid')->name('konseling.valid');

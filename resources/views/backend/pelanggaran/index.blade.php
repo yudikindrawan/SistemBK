@@ -11,7 +11,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Periode</li>
+                            <li class="breadcrumb-item active" aria-current="page">Pelanggaran</li>
                         </ol>
                     </nav>
                 </div>
@@ -23,7 +23,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Data Periode</h5>
+                        <h5 class="card-title">Data Pelanggaran</h5>
                         <div class="card">
                         <div class="col-xs-7">
                             <a href="javascript:void(0)"><button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#myModal">Tambah</button></a>
@@ -34,21 +34,21 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Semester</th>
-                                                <th>Tahun AKademik</th>
+                                                <th>Nama Pelanggaran</th>
+                                                <th>Poin Pelanggaran</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php $no = 0 ;?>
-                                            @foreach($periodes as $periode)
+                                            @foreach($pelanggarans as $pelanggaran)
                                             <?php $no++ ;?>
                                             <tr>
                                                 <td>{{ $no }}</td>
-                                                <td>{{ $periode->semester }}</td>
-                                                <td>{{ $periode->tahun_akademik }}</td>
+                                                <td>{{ $pelanggaran->nama_pelanggaran }}</td>
+                                                <td>{{ $pelanggaran->poin_pelanggaran }}</td>
                                                 <td style="white-space: nowrap; ">
-                                                    <a onClick="modalEditTriger( {{$periode->id}} )" data-toggle="modal" class="btn btn-info btn-sm" style="color:white;">Ubah</a>
+                                                    <a onClick="modalEditTriger( {{$pelanggaran->id}} )" data-toggle="modal" class="btn btn-info btn-sm" style="color:white;">Ubah</a>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -56,8 +56,8 @@
                                         <tfoot>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Semester</th>
-                                                <th>Tahun AKademik</th>
+                                                <th>Nama Pelanggaran</th>
+                                                <th>Poin Pelanggaran</th>
                                                 <th>Action</th>
                                             </tr>
                                         </tfoot>
@@ -74,31 +74,22 @@
 <!-- modal create -->
 <div class="modal fade" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
-        <form class="formuser" id="formuser" action="{{ route('periode.store') }}" method="POST">
+        <form class="formuser" id="formuser" action="{{ route('pelanggaran.store') }}" method="POST">
         {{ csrf_field() }}
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Tambah Data Periode</h4>
+                    <h4 class="modal-title">Tambah Data Pelanggaran</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="id" class="form-control"/>
                     <div class="form-group">
-                        <label>Semester</label>
-                        <select required class="select2 form-control custom-select" style="width: 100%; height:36px;" name="semester">
-                            <option selected disabled>Pilh Semester</option>
-                            @foreach(["Ganjil" => "Ganjil", "Genap" => "Genap"] AS $semester => $label)
-                            <option value="{{$semester}}" >{{$label}}</option>
-                            @endforeach
-                        </select>
+                        <label>Nama Pelanggaran</label>
+                        <input type="text" name="nama_pelanggaran" id="nama_pelanggaran" class="form-control " placeholder="Masukan Nama Pelanggaran" required/>
                     </div>
                     <div class="form-group">
-                        <label class="m-t-15">Tahun Akademik</label>
-                        <div class="input-group">
-                            <input type="text" name="tahun_akademik" class="form-control datepicker-autoclose" id="datepicker-autoclose" placeholder="yyyy" required>
-                            <div class="input-group-append">
-                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                        </div>
+                        <label>Poin Pelanggaran</label>
+                        <input type="text" name="poin_pelanggaran" id="poin_pelanggaran" class="form-control " placeholder="Masukan Poin Pelanggaran" required/>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -119,7 +110,7 @@
     function modalEditTriger(id){
         jQuery.noConflict();
         $.ajax({
-            url     : "{{ route('editperiode') }}",
+            url     : "{{ route('editpelanggaran') }}",
             method  : 'get',
             data    : {
             'id' : id

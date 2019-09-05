@@ -47,17 +47,25 @@ class DatabaseSeeder extends Seeder
         ]);
         App\periode::create([
             'semester' => 'Ganjil',
-            'tahun_akademik' => 2019,
+            'tahun_akademik' => 2019/2020,
         ]);
         App\periode::create([
             'semester' => 'Genap',
-            'tahun_akademik' => 2019,
+            'tahun_akademik' => 2019/2020,
         ]);
         App\kelas::create([
             'nama_kelas' => 'AP1',
         ]);
         App\kelas::create([
             'nama_kelas' => 'AP2',
+        ]);
+        App\pelanggaran::create([
+            'nama_pelanggaran' => 'Merokok Dalam Kelas',
+            'poin_pelanggaran' => '20',
+        ]);
+        App\pelanggaran::create([
+            'nama_pelanggaran' => 'Berkelahi dengan teman',
+            'poin_pelanggaran' => '15',
         ]);
     }
 }

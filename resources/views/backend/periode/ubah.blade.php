@@ -12,16 +12,15 @@
                     <div class="form-group">
                         <label>Semester</label>
                         <select required class="select2 form-control custom-select" style="width: 100%; height:36px;" name="semester" required>
-                            <option selected="selected">Pilh Semester</option>
-                            @foreach($semesters as $semester)
-                            <option value="{{$semester}}" >{{$semester}}</option>
+                            @foreach(["Ganjil" => "Ganjil", "Genap" => "Genap"] AS $semester => $label)
+                            <option value="{{$semester}}" {{ old("semester", $periodes->semester) == $semester ? "selected" : " "}}>{{ $label }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label class="m-t-15">Tahun Akademik</label>
                         <div class="input-group">
-                            <input type="text" name="tahun_akademik" class="form-control datepicker-autoclose" id="datepicker-autoclose" value="{{ $periodes->tahun_akademik}}" required> 
+                            <input type="text" name="tahun_akademik" class="form-control datepicker-autoclose" id="datepicker-autoclose" value="{{ $periodes->tahun_akademik}}" required>
                             <div class="input-group-append">
                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                         </div>

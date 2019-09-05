@@ -23,8 +23,8 @@ class periodecontroller extends Controller
     {
         //
         $periodes = periode::all();
-        $semesters = ['Ganjil','Genap'];
-        return view('backend/periode/index', compact('periodes','semesters'));
+        // $semesters = ['Ganjil','Genap'];
+        return view('backend/periode/index', compact('periodes'));
     }
 
     /**
@@ -36,8 +36,8 @@ class periodecontroller extends Controller
     {
         //
         $periodes = periode::all();
-        $semesters = ['Ganjil','Genap'];
-        return view('backend/periode/index', compact('periodes','semesters'));
+        // $semesters = ['Ganjil','Genap'];
+        return view('backend/periode/index', compact('periodes'));
     }
 
     /**
@@ -82,8 +82,8 @@ class periodecontroller extends Controller
     {
         //
         $periodes = periode::find($request->id);
-        $semesters = ['Ganjil','Genap'];
-        return view('backend/periode/ubah', compact('periodes','semesters'));
+        // $semesters = ['Ganjil','Genap'];
+        return view('backend/periode/ubah', compact('periodes'));
     }
     /**
      * Update the specified resource in storage.

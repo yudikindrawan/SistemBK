@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\roles;
 Use Alert;
+use Hash;
 use Auth;
 use DB;
 
@@ -84,7 +85,7 @@ class usercontroller extends Controller
      */
     public function edit($id)
     {
-        // 
+        //
     }
     public function ubah(Request $request)
     {
@@ -135,4 +136,5 @@ class usercontroller extends Controller
         toastr()->success('Data berhasih dihapus', 'Pesan berhasil');
         return redirect('user');
     }
+
 }

@@ -3,38 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\roles;
-use App\siswa;
 use App\pelanggaran;
-use App\konseling;
+Use Alert;
 use Auth;
 
-class dashboardController extends Controller
+class pelanggarancontroller extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
-        $this->middleware('auth');
-    }
-
+     public function __construct(){
+         $this->middleware('auth');
+         $this->middleware('roles:BK');
+     }
     public function index()
     {
         //
-        $siswas = siswa::all();
-        $pels = pelanggaran::all();
-        $kons = konseling::all();
-        $users = user::all();
-        return view ('backend/dashboard', compact('siswas','users','pels','kons'));
+        $pelanggarans = pelanggaran::all();
+        return view('backend/pelanggaran/index', compact('pelanggarans'));
     }
-    public function profil(){
-        $users = user::all();
-        $roles = roles::all();
-        return view('backend/profile/index', compact('users','roles'));
-    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -43,6 +33,8 @@ class dashboardController extends Controller
     public function create()
     {
         //
+        $pelanggarans = pelanggaran::all();
+        return view('backend/pelanggaran/index', compact('pelanggarans'));
     }
 
     /**
@@ -54,6 +46,12 @@ class dashboardController extends Controller
     public function store(Request $request)
     {
         //
+        $pelanggarans = new pelanggaran;
+        $pelanggarans->nama_pelanggaran = $request->nama_pelanggaran;
+        $pelanggarans->poin_pelanggaran = $request->poin_pelanggaran;
+        $pelanggarans->save();
+          toastr()->success('Data berhasih disimpan', 'Pesan berhasil');
+          return redirect('pelanggaran');
     }
 
     /**
@@ -77,6 +75,10 @@ class dashboardController extends Controller
     {
         //
     }
+    public function ubah(Request $request){
+      $pelanggarans = pelanggaran::findOrFail($request->id);
+      return view('backend/pelanggaran/ubah', compact('pelanggarans'));
+    }
 
     /**
      * Update the specified resource in storage.
@@ -88,6 +90,12 @@ class dashboardController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $pelanggarans = pelanggaran::findOrFail($request->id);
+        $pelanggarans->nama_pelanggaran = $request->nama_pelanggaran;
+        $pelanggarans->poin_pelanggaran = $request->poin_pelanggaran;
+        $pelanggarans->save();
+          toastr()->success('Data berhasih disimpan', 'Pesan berhasil');
+          return redirect('pelanggaran');
     }
 
     /**

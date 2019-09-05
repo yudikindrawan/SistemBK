@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class periode extends Model
+class pelanggaran extends Model
 {
     //
-    protected $table = 'periode';
-    protected $fillable = ['semester','tahun_akademik'];
+    protected $table = 'pelanggaran';
+    protected $fillable = ['nama_pelanggaran','poin_pelanggaran'];
 
     public function konseling(){
       return $this->hasMany(konseling::class);
