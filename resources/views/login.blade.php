@@ -42,10 +42,10 @@
         <!-- Login box.scss -->
         <!-- ============================================================== -->
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark">
-            <div class="auth-box bg-dark border-top border-secondary">
+            <div class="auth-box bg-dark border-secondary">
                 <div id="loginform">
                     <div class="text-center p-t-20 p-b-20">
-                        <span class="db"><img src="{{ asset ('assets/images/logo.png')}}" alt="logo" /></span>
+                        <span class="db" style="color:white;"><img src="../../assets/images/new.png" alt="logo" class=" class="bg-dark border-bottom border-secondary""/></span>
                     </div>
                     <!-- Form -->
                     <form class="form-horizontal m-t-20" id="loginform" action="{{ route('postlogin') }}" method="post">
@@ -62,7 +62,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
                                     </div>
-                                    <input type="text" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" name="password" id="password" required="">
+                                    <input type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" name="password" id="password" required="">
                                 </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <div class="p-t-20">
-                                        <button class="btn btn-info" id="to-recover" type="button"><i class="fa fa-lock m-r-5"></i> Lost password?</button>
+                                        <!-- <button class="btn btn-info" id="to-recover" type="button"><i class="fa fa-lock m-r-5"></i> Lost password?</button> -->
                                         <button class="btn btn-success float-right" type="submit">Login</button>
                                     </div>
                                 </div>
@@ -134,15 +134,15 @@
 
     $('[data-toggle="tooltip"]').tooltip();
     $(".preloader").fadeOut();
-    // ============================================================== 
-    // Login and Recover Password 
-    // ============================================================== 
+    // ==============================================================
+    // Login and Recover Password
+    // ==============================================================
     $('#to-recover').on("click", function() {
         $("#loginform").slideUp();
         $("#recoverform").fadeIn();
     });
     $('#to-login').click(function(){
-        
+
         $("#recoverform").hide();
         $("#loginform").fadeIn();
     });

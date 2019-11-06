@@ -1,7 +1,7 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script src="{{ asset('dist/js/jquery.ui.touch-punch-improved.js') }}"></script>
     <script src="{{ asset('dist/js/jquery-ui.min.js') }}"></script>
     <!--Bootstrap tether Core JavaScript-->
@@ -18,8 +18,6 @@
     <script src="{{ asset('dist/js/custom.min.js')}}"></script>
     <!--this page js-->
     <script src="{{ asset('assets/libs/moment/min/moment.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/fullcalendar/dist/fullcalendar.min.js') }}"></script>
-    <script src="{{ asset('dist/js/pages/calendar/cal-init.js')}}"></script>
     <!--Datatables-->
     <script src="{{ asset('assets/extra-libs/multicheck/datatable-checkbox-init.js')}}"></script>
     <script src="{{ asset('assets/extra-libs/multicheck/jquery.multicheck.js') }}"></script>
@@ -29,4 +27,8 @@
     <!-- Select2-->
     <script src="{{ asset ('assets/libs/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset ('assets/libs/select2/dist/js/select2.min.js') }}"></script>
+    <!--daterangepicker-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <!--chartJS-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         @stack('scripts')

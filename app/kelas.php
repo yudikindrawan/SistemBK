@@ -8,9 +8,13 @@ class kelas extends Model
 {
     //
     protected $table = 'kelas';
-    protected $fillable = ['nama_kelas'];
+    protected $fillable = ['nama_kelas','nama_jurusan'];
 
     public function siswa(){
       return $this->hasMany(siswa::class);
+    }
+
+    public function guru(){
+      return $this->hasMany(guru::class);
     }
 }

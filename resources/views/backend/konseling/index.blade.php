@@ -41,7 +41,6 @@
                                                 <th>NIS</th>
                                                 <th>Nama</th>
                                                 <th>Poin</th>
-                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -56,37 +55,25 @@
                                                 <td>{{ $kon->siswa->nis}}</td>
                                                 <td>{{ $kon->nama_siswa }}</td>
                                                 <td>{{ $kon->total_poin}}</td>
-                                                @if($kon->status == "Pending")
+                                                {{-- @if($kon->status == "Pending")
                                                     <td><span class="badge badge-warning">{{ $kon->status}}</span></td>
                                                 @else
                                                     <td><span class="badge badge-success">{{ $kon->status}}</span></td>
-                                                @endif
+                                                @endif --}}
                                                 <td style="white-space: nowrap; ">
                                                 @if(Auth::user()->roles_id == 2)
                                                     <a href="{{ route('konseling.edit', $kon->id) }}" class="btn btn-info btn-sm" style="color:white;">Ubah</a>
                                                     <a onClick="modalEditTriger( {{$kon->id}} )" data-toggle="modal"  class="btn btn-primary btn-sm" style="color:white;">Detail</a>
-                                                @elseif(Auth::user()->roles_id == 3)
-                                                    <a data-toggle="modal" data-target="#paidAlert" data-id="{{$kon->id}}" class="btn btn-success btn-sm" style="color:white;">Validasi</a>
+                                                {{-- @elseif(Auth::user()->roles_id == 3)
+                                                    <a data-toggle="modal" data-target="#paidAlert" data-id="{{$kon->id}}" class="btn btn-success btn-sm" style="color:white;">Validasi</a> --}}
                                                 @endif
-                                                @if ($kon->status == "valid" && Auth::user()->roles_id == 2)
-                                                    <a href="#" class="btn btn-warning btn-sm" style="color:white;"><i class="mdi mdi-cloud-download"></i></a>
+                                                @if ($kon->status == "Valid" && Auth::user()->roles_id == 2)
+                                                    <a data-toggle="modal" onClick="modalEditReport( {{$kon->id}} )" class="btn btn-warning btn-sm" style="color:white;"><i class="mdi mdi-cloud-download"></i></a>
                                                 @endif
                                                 </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Semester</th>
-                                                <th>Tanggal</th>
-                                                <th>NIS</th>
-                                                <th>Nama</th>
-                                                <th>Poin</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -130,7 +117,7 @@
 @push('scripts')
 <script>
    // MODAL EDIT
-    
+
     function modalEditTriger(id){
         jQuery.noConflict();
         $.ajax({
@@ -146,9 +133,34 @@
             }
         });
     }
+</script>
+<script>
+    function modalEditReport(id){
+        jQuery.noConflict();
+        $.ajax({
+            url     : "{{ route('indexreport') }}",
+            method  : 'get',
+            data    : {
+            'id' : id
+            },
+            success : function(response){
+            // console.log(response);
+                $('.modalKu').html(response);
+                $('#modalSP').modal({ backdrop: 'static', keyboard: false });
+            }
+        });
+    }
 
 
     $('#paidAlert').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id')
+
+        var modal = $(this)
+        modal.find('#id').val(id)
+    })
+
+    $('#modalSP').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         var id = button.data('id')
 

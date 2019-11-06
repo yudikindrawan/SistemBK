@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder
         App\roles::create([
             'nama_role' => 'OrangTua'
         ]);
+        App\roles::create([
+            'nama_role' => 'Guru'
+        ]);
         App\User::create([
             'roles_id' => 1,
             'username' => 'admin',
@@ -45,19 +48,31 @@ class DatabaseSeeder extends Seeder
             'username' => 'OrangTua',
             'password' => bcrypt('OrangTua'),
         ]);
+        App\User::create([
+            'roles_id' => 5,
+            'username' => 'Guru',
+            'password' => bcrypt('Guru'),
+        ]);
         App\periode::create([
             'semester' => 'Ganjil',
-            'tahun_akademik' => 2019/2020,
+            'tahun_akademik' => '2019/2020',
         ]);
         App\periode::create([
             'semester' => 'Genap',
-            'tahun_akademik' => 2019/2020,
+            'tahun_akademik' => '2019/2020',
         ]);
         App\kelas::create([
-            'nama_kelas' => 'AP1',
+            'nama_kelas' => 'X',
+            'nama_jurusan' => 'AP1',
         ]);
         App\kelas::create([
-            'nama_kelas' => 'AP2',
+            'nama_kelas' => 'XI',
+            'nama_jurusan' => 'AP2',
+        ]);
+
+        App\kelas::create([
+            'nama_kelas' => 'XII',
+            'nama_jurusan' => 'AP3',
         ]);
         App\pelanggaran::create([
             'nama_pelanggaran' => 'Merokok Dalam Kelas',

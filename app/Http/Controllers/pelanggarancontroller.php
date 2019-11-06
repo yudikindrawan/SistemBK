@@ -77,6 +77,7 @@ class pelanggarancontroller extends Controller
     }
     public function ubah(Request $request){
       $pelanggarans = pelanggaran::findOrFail($request->id);
+      // dd($pelanggarans);
       return view('backend/pelanggaran/ubah', compact('pelanggarans'));
     }
 
@@ -87,7 +88,7 @@ class pelanggarancontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
         $pelanggarans = pelanggaran::findOrFail($request->id);

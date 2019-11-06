@@ -24,7 +24,9 @@ class CreateKonselingsTable extends Migration
             $table->enum('status', ['Valid','Pending'])->default('Pending');
             $table->string('bimbingan_konseling')->nullable();
             $table->string('nama_siswa')->nullable();
+            $table->enum('status_surat', ['0','1'])->default('0');
             $table->integer('total_poin')->nullable();
+            $table->string('tanggal_pemanggilan')->nullable();
             $table->timestamps();
         });
     }

@@ -59,18 +59,18 @@
                                         </select>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="lname" class="col-sm-2 text-right control-label col-form-label">NIS</label>
-                                        <select name="nis" id="nis" class="form-control select2 custom-select id_siswa" style="width: 74%; height:36px;" required>
-                                            <option selected="selected" disabled>Pilih NIS</option>
+                                        <label for="lname" class="col-sm-2 text-right control-label col-form-label">Nama Siswa</label>
+                                        <select name="nama_siswa" id="nama_siswa" class="form-control select2 custom-select siswa_nama" style="width: 74%; height:36px;" required>
+                                            <option selected="selected" disabled>Pilih Siswa</option>
                                             @foreach($siswas as $sis)
-                                                <option value="{{$sis->nis}}">{{ $sis->nis }}</option>
+                                                <option value="{{$sis->nama_siswa}}">{{ $sis->nama_siswa }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="nama_siswa" class="col-sm-2 text-right control-label col-form-label">Nama Siswa</label>
+                                        <label for="nis" class="col-sm-2 text-right control-label col-form-label">NIS</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="nama_siswa" name="nama_siswa" placeholder="Nama Siswa">
+                                            <input type="text" class="form-control" id="nis" name="nis" placeholder="NIS">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -85,9 +85,14 @@
                                             <input type="text" class="form-control" id="bimbingan_konseling" name="bimbingan_konseling" placeholder="Masukkan bimbingan konseling">
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="form-group row">
+                                        <label for="bimbingan_konseling" class="col-sm-2 text-right control-label col-form-label">Tanggal Pemanggilan</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control datepicker-autoclose" id="tanggal_pemanggilan" name="tanggal_pemanggilan" placeholder="dd/mm/yyyy" required >
+                                        </div>
+                                    </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location='{{ route('konseling.index')}}'">Batal</button>
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <input type="submit" class="btn btn-primary" value="Simpan">
                                 </div>
@@ -102,7 +107,7 @@
 @endsection
 @push('scripts')
 <script type="text/javascript">
-    $(document).on('change','.id_siswa', function () {
+    $(document).on('change','.siswa_nama', function () {
         var id=$(this).val();
 
         var a=$(this).parent();
@@ -111,13 +116,13 @@
         $.ajax({
             type:'get',
             url:"{{route('cari')}}",
-            data:{'nis':id},
+            data:{'nama_siswa':id},
             dataType:'json',//return data will be json
             success:function(data){
-            console.log(data.nama_siswa);
+            console.log(data.nis);
 
             // menampilkan value
-            $('#nama_siswa').val(data.nama_siswa);
+            $('#nis').val(data.nis);
             },
             error:function(){
 
@@ -154,6 +159,11 @@
     *       Basic Table                   *
     ****************************************/
     $('#zero_config').DataTable();
-
+</script>
+<script>
+    /*datwpicker*/
+        jQuery('.datepicker-autoclose').datepicker({
+            autoclose: true,
+        });
 </script>
 @endpush

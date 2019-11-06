@@ -8,15 +8,18 @@ class konseling extends Model
 {
     //
     protected $table = 'konselings';
-    protected $fillable = ['id_periode', 'id_pelanggaran', 'id_siswa', 'bimbingan_konseling','nama_siswa','total_poin', 'tahun_akademik'];
-    
+    protected $fillable = ['id_periode', 'id_pelanggaran', 'id_siswa', 'bimbingan_konseling','nama_siswa','total_poin', 'tahun_akademik','tanggal_pemanggilan'];
+
     public function periode(){
-      return $this->belongsTo(periode::class,'id_periode');
+      return $this->belongsTo('App\periode','id_periode');
     }
     public function pelanggaran(){
-      return $this->belongsTo(pelanggaran::class,'id_pelanggaran');
+      return $this->belongsTo('App\pelanggaran','id_pelanggaran');
     }
     public function siswa(){
-      return $this->belongsTo(siswa::class, 'id_siswa');
+      return $this->belongsTo('App\siswa', 'id_siswa');
+    }
+    public function user(){
+      return $this->belongsTo('App\User');
     }
 }

@@ -8,7 +8,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="id" class="form-control"/>
+                    <input type="hidden" name="id" id="id" value="{{$pelanggarans->id}}" class="form-control"/>
                     <div class="form-group">
                         <label>Nama Pelanggaran</label>
                         <input type="text" name="nama_pelanggaran" id="nama_pelanggaran" class="form-control " placeholder="Masukan Nama Pelanggaran" value="{{ $pelanggarans->nama_pelanggaran }}" required/>

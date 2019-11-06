@@ -35,7 +35,6 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Username</th>
-                                                <th>Password</th>
                                                 <th>Roles</th>
                                                 <th>Action</th>
                                             </tr>
@@ -47,7 +46,6 @@
                                             <tr>
                                                 <td>{{ $no }}</td>
                                                 <td>{{ $user->username }}</td>
-                                                <td>{{ $user->password }}</td>
                                                 <td>{{ $user->roles->nama_role}}</td>
                                                 <td style="white-space: nowrap; ">
                                                     <a onClick="modalEditTriger( {{$user->id}} )" data-toggle="modal" class="btn btn-warning btn-sm">Reset</a>
@@ -56,15 +54,6 @@
                                             </tr>
                                             @endforeach
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Username</th>
-                                                <th>Password</th>
-                                                <th>Roles</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                             </div>

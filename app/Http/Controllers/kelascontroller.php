@@ -49,6 +49,7 @@ class kelascontroller extends Controller
         //
         $kelas = new kelas;
         $kelas->nama_kelas = $request->kelas;
+        $kelas->nama_jurusan = $request->jurusan;
         $kelas->save();
         toastr()->success('Data berhasih disimpan', 'Pesan berhasil');
         return redirect('kelas');
@@ -95,7 +96,8 @@ class kelascontroller extends Controller
         //
         $kelas = kelas::findOrFail($id);
         $kelas->nama_kelas = $request->kelas;
-        $kelas->save(); 
+        $kelas->nama_jurusan = $request->jurusan;
+        $kelas->save();
         toastr()->success('Data berhasih disimpan', 'Pesan berhasil');
         return redirect('kelas');
     }

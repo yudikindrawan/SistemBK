@@ -1,3 +1,3 @@
 <footer class="footer text-center">
-        &copy; Copyright 2019. SMK PGRI 3 Denpasar.
+        &copy; Copyright 2019. SMP PGRI 3 Denpasar.
 </footer>

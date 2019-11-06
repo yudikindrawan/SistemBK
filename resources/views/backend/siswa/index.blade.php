@@ -50,29 +50,20 @@
                                             <tr>
                                                 <td>{{ $no }}</td>
                                                 <td>{{ $siswa->nis }}</td>
-                                                <td>{{ $siswa->kelas->nama_kelas }}</td>
+                                                <td>{{ $siswa->kelas->nama_kelas }} {{$siswa->kelas->nama_jurusan}}</td>
                                                 <td>{{ $siswa->nama_siswa }}</td>
                                                 <td>{{ $siswa->tempat_lahir }}, {{ $siswa->tanggal_lahir }}</td>
                                                 <td>{{ $siswa->jenis_kelamin }}</td>
                                                 <td>{{ $siswa->alamat }}</td>
                                                 <td style="white-space: nowrap;">
                                                     <a onClick="modalEditTriger( {{ $siswa->nis }} )" class="btn btn-info btn-sm" style="color:white;">Ubah</a>
+                                                    @if (Auth::user()->roles_id == 5)
+                                                        <a onClick="modalEditTriger( {{ $siswa->nis }} )" class="btn btn-primary btn-sm" style="color:white;">Naik Kelas</a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>NIS</th>
-                                                <th>Kelas</th>
-                                                <th>Nama</th>
-                                                <th>Tempat/Tanggal Lahir</th>
-                                                <th>Jenis Kelamin</th>
-                                                <th>Alamat</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -103,15 +94,6 @@
                                             </tr>
                                             @endforeach
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama Orang Tua</th>
-                                                <th>Nama Siswa</th>
-                                                <th>Telephone</th>
-                                                <th>Alamat</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                             </div>

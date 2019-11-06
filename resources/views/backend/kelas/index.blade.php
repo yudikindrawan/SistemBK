@@ -35,6 +35,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Kelas</th>
+                                                <th>Jurusan</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -45,19 +46,13 @@
                                             <tr>
                                                 <td>{{ $no }}</td>
                                                 <td>{{ $kelas->nama_kelas }}</td>
+                                                <td>{{ $kelas->nama_jurusan }}</td>
                                                 <td style="white-space: nowrap; ">
                                                     <a onClick="modalEditTriger( {{$kelas->id}} )" data-toggle="modal" class="btn btn-info btn-sm" style="color:white;">Ubah</a>
                                                 </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Kelas</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -82,7 +77,15 @@
                     <div class="form-group">
                         <label class="m-t-15">Kelas</label>
                         <div class="input-group">
-                            <input type="text" name="kelas" class="form-control " id="kelas" placeholder="Masukkan Nama Kelas" required> 
+                            <input type="text" name="kelas" class="form-control " id="kelas" placeholder="Masukkan Kelas" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="m-t-15">Jurusan</label>
+                        <div class="input-group">
+                            <input type="text" name="jurusan" class="form-control " id="kelas" placeholder="Masukkan Jurusan" required>
                         </div>
                     </div>
                 </div>
@@ -92,7 +95,7 @@
                     <input type="submit" class="btn btn-success btn-sm" value="Simpan">
                 </div>
             </div>
-        </form> 
+        </form>
     </div>
 </div>
 <!-- end modal create-->
@@ -100,7 +103,7 @@
 @push('scripts')
 <script>
      // MODAL EDIT
-    
+
     function modalEditTriger(id){
         jQuery.noConflict();
         $.ajax({
@@ -118,7 +121,7 @@
     }
 
     $('#exampleModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) 
+        var button = $(event.relatedTarget)
         var recipient = button.data('id')
         var modal = $(this)
             modal.find('#id').val(recipient)
@@ -135,7 +138,7 @@
     /*datwpicker*/
         jQuery('.datepicker-autoclose').datepicker({
             format: " yyyy",
-            viewMode: "years", 
+            viewMode: "years",
             minViewMode: "years",
             autoclose: true,
         });

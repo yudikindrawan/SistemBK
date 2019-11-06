@@ -29,7 +29,7 @@
                         {{ method_field('put') }}
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Tambah Bimbingan Konseling</h4>
+                                    <h4 class="modal-title">Ubah Bimbingan Konseling</h4>
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-group row">
@@ -108,7 +108,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location='{{ route('konseling.index')}}'">Batal</button>
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <input type="submit" class="btn btn-primary" value="Simpan">
                                 </div>

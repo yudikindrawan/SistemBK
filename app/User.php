@@ -39,6 +39,12 @@ class User extends Authenticatable
     public function roles(){
         return $this->belongsTo(roles::class,'roles_id');
     }
+    public function guru(){
+        return $this->hasOne(guru::class);
+    }
+    public function konseling(){
+        return $this->hasMany('App\konseling', 'id_siswa');
+    }
     public function hasRole($role){
         if($this->roles->nama_role == $role){
             return true;

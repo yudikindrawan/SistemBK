@@ -105,10 +105,10 @@ class usercontroller extends Controller
     public function update(Request $request, $id)
     {
         //
-        $user = user::find($id);
-        $user->username = $request->username;
-        $user->password = bcrypt($request->username);
-            if($user->save()){
+        $users = user::find($id);
+        $users->username = $request->username;
+        $users->password = bcrypt($request->username);
+            if($users->save()){
                 toastr()->success('Data berhasih diperbaharui', 'Pesan berhasil');
                 return redirect('user');
             }else{

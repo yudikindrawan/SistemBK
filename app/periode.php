@@ -11,6 +11,6 @@ class periode extends Model
     protected $fillable = ['semester','tahun_akademik'];
 
     public function konseling(){
-      return $this->hasMany(konseling::class);
+      return $this->hasMany('App\konseling','id_periode');
     }
 }

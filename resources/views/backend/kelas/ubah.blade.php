@@ -4,14 +4,22 @@
             {{ method_field('put') }}
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Ubah Data Periode</h4>
+                    <h4 class="modal-title">Ubah Data Kelas</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="m-t-15">Kelas</label>
                         <div class="input-group">
-                            <input type="text" name="kelas" class="form-control " id="kelas" value="{{ $kelass->nama_kelas}}" required> 
+                            <input type="text" name="kelas" class="form-control " id="kelas" value="{{ $kelass->nama_kelas}}" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="m-t-15">Jurusan</label>
+                        <div class="input-group">
+                            <input type="text" name="jurusan" class="form-control " id="kelas" value="{{ $kelass->nama_jurusan}}" required>
                         </div>
                     </div>
                 </div>

@@ -39,6 +39,10 @@ class logincontroller extends Controller
                     toastr()->success('Hoorayy anda Berhasil log in!', 'Selamat yaa!');
                     return redirect(route('dashboard'));
                 }
+                elseif(Auth::user()->roles->nama_role === 'Guru'){
+                    toastr()->success('Hoorayy anda Berhasil log in!', 'Selamat yaa!');
+                    return redirect(route('siswaview'));
+                }
                 else{
                     return redirect(route('logout'));
                 }

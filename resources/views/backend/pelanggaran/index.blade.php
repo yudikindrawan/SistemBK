@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section ('title', 'Data Periode- Sistem Informasi Bimbingan Konseling')
+@section ('title', 'Data Pelanggaran- Sistem Informasi Bimbingan Konseling')
 
 @section('content')
 <div class="page-wrapper">
@@ -53,14 +53,6 @@
                                             </tr>
                                             @endforeach
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama Pelanggaran</th>
-                                                <th>Poin Pelanggaran</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -116,7 +108,7 @@
             'id' : id
             },
             success : function(response){
-            // console.log(response);
+            console.log(response);
                 $('.modalKu').html(response);
                 $('#editModal').modal({ backdrop: 'static', keyboard: false });
             }

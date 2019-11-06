@@ -45,7 +45,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location='{{ route('user.index')}}'">Batal</button>
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-primary" value="Simpan">
                                     </div>
@@ -61,4 +61,3 @@
 @endsection
 @push('scripts')
 @endpush
-

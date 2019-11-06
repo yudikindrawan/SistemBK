@@ -7,17 +7,16 @@ use App\pelanggaran;
 use App\periode;
 use App\siswa;
 use App\konseling;
+use App\kelas;
+use App\User;
 Use Alert;
 use Auth;
 use DB;
 
+use PDF;
+
 class konselingcontroller extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
@@ -25,14 +24,10 @@ class konselingcontroller extends Controller
         $pels = pelanggaran::all();
         $periodes = periode::all();
         $siswas = siswa::all();
+        $kelas = kelas::all();
         return view('backend/konseling/index', compact('kons','pels','periodes','siswas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
@@ -43,59 +38,24 @@ class konselingcontroller extends Controller
         return view('backend/konseling/tambah', compact('kons','pels','periodes','siswas'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
-        // if($kons->siswa->nis === 0){
-        //     $kons = new konseling;
-        //     $kons->id_periode           = $request->tahun_akademik;
-        //     $kons->id_periode           = $request->semester;
-        //     $kons->id_pelanggaran       = $request->pelanggaran;
-        //     $kons->id_siswa             = $request->nis;
-        //     $kons->status               = 'Pending';
-        //     $kons->nama_siswa           = $request->nama_siswa;
-        //     $kons->total_poin           = $request->poin_pelanggaran;
-        //     $kons->bimbingan_konseling  = $request->bimbingan_konseling;
-        // }else{
-        //     $kons = konseling::find($request->id);
-        //     $kons->id_periode           = $request->tahun_akademik;
-        //     $kons->id_periode           = $request->semester;
-        //     $kons->id_pelanggaran       = $request->pelanggaran;
-        //     $kons->id_siswa             = $request->nis;
-        //     $kons->status               = 'Pending';
-        //     $kons->nama_siswa           = $request->nama_siswa;
-        //     $kons->total_poin           = $request->poin_pelanggaran;
-        //     $kons->bimbingan_konseling  = $request->bimbingan_konseling;
-        // } 
-        
-        $kons = konseling::updateOrCreate(
-            [
-                'id_periode' => $request->tahun_akademik,
-                'id_periode' => $request->semester,
-                'id_pelanggaran' => $request->pelanggaran,
-                'id_siswa' => $request->nis,
-                'status' => 'Pending',
-                'nama_siswa' => $request->nama_siswa,
-                'total_poin' => $request->poin_pelanggaran,
-                'bimbingan_konseling' => $request->bimbingan_konseling,
-            ])->save();
-        // $kons->save();
-            toastr()->success('Data berhasil disimpan', 'Pesan berhasil');
-            return redirect('konseling');
+        $kons = konseling::updateOrCreate([
+            'id_periode' => $request->tahun_akademik,
+            'id_periode' => $request->semester,
+            'id_pelanggaran' => $request->pelanggaran,
+            'id_siswa' => $request->nis,
+            'status' => 'Pending',
+            'nama_siswa' => $request->nama_siswa,
+            'total_poin' => $request->poin_pelanggaran,
+            'bimbingan_konseling' => $request->bimbingan_konseling,
+            'tanggal_pemanggilan' => $request->tanggal_pemanggilan,
+        ]);
+
+        toastr()->success('Data berhasil disimpan', 'Pesan berhasil');
+        return redirect('konseling');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Request $request)
     {
         //
@@ -106,12 +66,16 @@ class konselingcontroller extends Controller
         return view('backend/konseling/detail', compact('kons','pels','periodes','siswas'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function indexReport(Request $request)
+    {
+        //
+        $kons = konseling::find($request->id);
+        $pels = pelanggaran::all();
+        $periodes = periode::all();
+        $siswas = siswa::all();
+        return view('backend/konseling/addReport', compact('kons','pels','periodes','siswas'));
+    }
+
     public function edit($id)
     {
         //
@@ -122,13 +86,6 @@ class konselingcontroller extends Controller
         return view('backend/konseling/ubah', compact('kons','pels','periodes','siswas'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
@@ -145,19 +102,13 @@ class konselingcontroller extends Controller
             return redirect('konseling');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
     }
     public function cari(Request $request)
     {
-        $p=siswa::select('nama_siswa')->where('nis', $request->nis)->first();
+        $p=siswa::select('nis')->where('nama_siswa', $request->nama_siswa)->first();
 
         return Response()->json($p);
     }
@@ -176,5 +127,33 @@ class konselingcontroller extends Controller
         $kons->save();
             toastr()->success('Data berhasil divalidasi', 'Pesan berhasil');
             return redirect()->back();
+    }
+
+    public function indexsurat(){
+
+        // $konseling = User::findOrFail(Auth::user()->id)->konseling;
+        // $konseling = konseling::select('konselings.*')->get();
+        $kons = konseling::all();
+        // dd($konseling);
+        return view('backend/surat/SP-ortu', compact('kons'));
+    }
+
+    public function sendSP(Request $req)
+    {
+        $id = $req->id;
+        $kons = konseling::findOrFail($id);
+        $kons->status_surat = '1';
+        $kons->save();
+        toastr()->success('Surat berhasil dibuat', 'Pesan Berhasil');
+        return redirect()->back();
+    }
+
+    public function cetak_pdf($id){
+        $konselings = konseling::find($id);
+        $periode = periode::all();
+        $pelanggaran = pelanggaran::all();
+        $siswa = siswa::all();
+        $pdf = PDF::loadview('backend/surat/suratOrtu', compact('konselings','periode','pelanggaran','siswa'));
+        return $pdf->download('surat-peringata.pdf');
     }
 }

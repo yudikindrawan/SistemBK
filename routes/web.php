@@ -18,7 +18,15 @@ use App\konseling;
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'dashboardController@index')->name('dashboard');
+Route::get('chart', 'dashboardController@chart')->name('chart-bar');
 Route::get('profile', 'dashboardController@profil')->name('profile');
+Route::get('cari-siswa', 'dashboardController@cariSiswa')->name('cariSiswa');
+Route::get('show-siswa', 'dashboardController@showData')->name('show-siswa');
+Route::get('cetakSiswa_pdf/', 'dashboardController@cetak_pdf')->name('sp-cetak');
+Route::get('show-pengembalian', 'dashboardController@pengembalianData')->name('pengembalian-siswa');
+Route::get('cetakPengembalian_pdf/', 'dashboardController@cetak_pdf_pengembalian')->name('pengembalian-cetak');
+Route::get('show_surat_peringtan', 'dashboardController@showPeringatanOrtu')->name('show_Peringatan');
+Route::get('show_surat_pengembalian', 'dashboardController@showPengembalianOrtu')->name('show_Pengembalian');
 Auth::routes();
 // Login Route
 Route::get('login', 'logincontroller@getlogin')->name('login');
@@ -51,3 +59,15 @@ Route::get('konseling-cari', 'konselingcontroller@cari')->name('cari');
 Route::get('pelanggaran-cari', 'konselingcontroller@cariPel')->name('cariPel');
 Route::get('konseling-detail', 'konselingcontroller@show')->name('detailkonseling');
 Route::put('konseling-valid/', 'konselingcontroller@valid')->name('konseling.valid');
+Route::get('konseling-addreport', 'konselingcontroller@indexReport')->name('indexreport');
+Route::get('cetak_pdf/{id}', 'konselingcontroller@cetak_pdf')->name('sp-cetak');
+Route::get('index-SP', 'konselingcontroller@indexsurat')->name('index-SP');
+
+
+//guru routes
+Route::resource('guru', 'GuruController');
+Route::get('siswa-view', 'GuruController@view')->name('siswaview');
+
+Route::get('laporan', 'laporankonselingController@index')->name('laporan_konseling');
+Route::post('cetak-view', 'laporankonselingController@tampil_data')->name('laporan_tampil');
+Route::get('print/{awal}/{akhir}', 'laporankonselingController@cetak')->name('laporan_cetak');

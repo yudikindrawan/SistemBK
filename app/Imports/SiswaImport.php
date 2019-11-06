@@ -4,14 +4,27 @@ namespace App\Imports;
 
 use App\Siswa;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class SiswaImport implements ToModel
+class SiswaImport implements ToModel, WithValidation
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+    public function rules(): array
+    {
+      return [
+          '0' => 'unique:siswa,nis'
+      ];
+    }
+    public function customValidationMessages()
+    {
+      return [
+          '0.unique' => 'Correo ya esta en uso.',
+      ];
+    }
     public function model(array $row)
     {
         return new Siswa([

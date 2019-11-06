@@ -14,6 +14,7 @@ use Auth;
 use App\Imports\SiswaImport;
 use App\Imports\UserImport;
 use Maatwebsite\Excel\Facades\Excel;
+use validate;
 
 class siswacontroller extends Controller
 {
@@ -42,18 +43,23 @@ class siswacontroller extends Controller
     public function import_excel(Request $request)
     {
       // validasi
-        $this->validate([
+        $request->validate([
             'file' => 'required|mimes:csv,xls,xlsx',
         ]);
+        $file = siswa::select('nis')->first();
 
-        $file = $request->file('file');
-        $filename = rand().$file->getClientOriginalName();
-        $file->move('file_upload', $filename);
-        Excel::import(new SiswaImport, public_path('/file_upload/'. $filename));
-        Excel::import(new UserImport, public_path('/file_upload/'. $filename));
-        Session::flash('sukses','Data Siswa Berhasil Diimport!');
-        
-        return redirect('siswa');
+        // if ($file != null){
+            $file = $request->file('file');
+            $filename = rand().$file->getClientOriginalName();
+            $file->move('file_upload', $filename);
+            Excel::import(new SiswaImport, public_path('/file_upload/'. $filename));
+            Excel::import(new UserImport, public_path('/file_upload/'. $filename));
+            toastr()->success('Data berhasil disimpan', 'Pesan berhasil');
+            return redirect('siswa');
+        // }else{
+        //     toastr()->error('Data sudah ada', 'Pesan gagal');
+        //     return redirect('siswa');
+        // }
     }
     public function create()
     {
